@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import DashboardShell from "@/components/DashboardShell";
+import { BarChart, LogIn, PackageOpen, LayoutGrid, FileText, ClipboardList } from "lucide-react";
 
 /* ---------- Types ---------- */
 interface ManifestItem {
@@ -77,8 +78,32 @@ export default function HubIntakePage() {
   const deltaPct = fieldWeight > 0 ? ((delta / fieldWeight) * 100).toFixed(1) : "0.0";
   const isMatch = delta < 0.001;
 
+  const hubNav = [
+    {
+      section: "Hub Operations",
+      items: [
+        { label: "Dashboard", icon: <BarChart size={18} />, href: "/hub/dashboard" },
+        { label: "Collector Intake", icon: <LogIn size={18} />, href: "/hub/intake" },
+        { label: "Inventory", icon: <PackageOpen size={18} />, href: "/hub/inventory" },
+        { label: "Batches", icon: <LayoutGrid size={18} />, href: "/hub/batches" },
+      ]
+    },
+    {
+      section: "Reporting",
+      items: [
+        { label: "Reconciliation", icon: <ClipboardList size={18} />, href: "/hub/reconciliation" },
+        { label: "Manifests & Reports", icon: <FileText size={18} />, href: "/hub/reports" },
+      ]
+    }
+  ];
+
   return (
-    <DashboardShell activeRole="Hub Mgr" userName="Rajesh Patel" userRole="Ops Lead (Western Hub)">
+    <DashboardShell 
+      navItems={hubNav}
+      activeRole="Hub Manager" 
+      userName="Rajesh Patel" 
+      userRole="Ops Lead (Western Hub)"
+    >
       {/* Top Header */}
       <div className="card" style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", justifyContent: "space-between", gap: "var(--space-md)" }}>
         <div style={{ display: "flex", flexDirection: "column", gap: "var(--space-xs)" }}>

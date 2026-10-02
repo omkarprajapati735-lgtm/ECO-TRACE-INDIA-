@@ -4,6 +4,7 @@ import { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import DashboardShell from "@/components/DashboardShell";
+import { ListTodo, Wallet, History, Bell, User, Settings } from "lucide-react";
 
 /* ---------- Types ---------- */
 interface NearbyJobItem {
@@ -177,8 +178,32 @@ export default function CollectorDashboard() {
     } finally { setClaimingId(null); }
   };
 
+  const collectorNav = [
+    {
+      section: "Collector",
+      items: [
+        { label: "Nearby Jobs", icon: <ListTodo size={18} />, href: "/collector/dashboard" },
+        { label: "My Wallet", icon: <Wallet size={18} />, href: "/collector/wallet" },
+        { label: "Job History", icon: <History size={18} />, href: "/collector/history" },
+      ]
+    },
+    {
+      section: "Account",
+      items: [
+        { label: "Notifications", icon: <Bell size={18} />, href: "/collector/notifications" },
+        { label: "Profile", icon: <User size={18} />, href: "/collector/profile" },
+        { label: "Settings", icon: <Settings size={18} />, href: "/collector/settings" },
+      ]
+    }
+  ];
+
   return (
-    <DashboardShell activeRole="Collector" userName="Suresh Kumar" userRole="Field Collector (Zone 4)">
+    <DashboardShell 
+      navItems={collectorNav}
+      activeRole="Collector" 
+      userName="Suresh Kumar" 
+      userRole="Field Collector (Zone 4)"
+    >
       {/* Field Worker Status Header */}
       <section className="card" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "var(--space-md)" }}>
         <div style={{ display: "flex", alignItems: "center", gap: "var(--space-md)" }}>

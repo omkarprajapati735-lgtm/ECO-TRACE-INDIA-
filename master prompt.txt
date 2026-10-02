@@ -1,0 +1,2942 @@
+# MASTER DEVELOPMENT PROMPT — ECOTRACE INDIA
+
+================================================================================
+
+## 1. OVERVIEW
+
+================================================================================
+
+Build **EcoTrace India**, a production-ready, full-stack, web-based **e-waste collection and reverse-logistics platform for India**.
+
+EcoTrace is not merely an e-waste marketplace or consumer pickup application. It is a **digital coordination and traceability layer** connecting India's fragmented e-waste collection ecosystem.
+
+The platform connects:
+
+**CONSUMERS → COLLECTORS → LOCAL HUBS → FORMAL RECYCLERS → COMPLIANCE / EPR**
+
+The product is designed around the reality that India already has a large informal collection network consisting of:
+
+* Normal people
+* Kabadiwalas
+* Raddiwalas
+* Ragpickers
+* Junk collectors
+* Local scrap dealers
+* Independent field collection agents
+
+The problem is that this existing network is fragmented, largely offline, inconsistent in pricing and grading, difficult to track, and poorly connected to formal recycling and compliance operations.
+
+EcoTrace should digitally organize this existing ecosystem rather than attempt to replace it.
+
+### Core Problem
+
+Consumers often do not have a simple, transparent and trustworthy way to dispose of e-waste.
+
+Collectors often operate with:
+
+* Manual records
+* Inconsistent weighing
+* Inconsistent material classification
+* Unstable pricing
+* Limited access to organized collection opportunities
+* Limited digital financial records
+
+Formal recyclers face:
+
+* Fragmented procurement
+* Inconsistent material quality
+* Difficult material traceability
+* Weight discrepancies
+* Logistics inefficiencies
+* Operational leakage
+* Compliance/documentation complexity
+
+EcoTrace addresses these problems through one connected digital workflow.
+
+### Core Value Proposition
+
+EcoTrace should provide:
+
+* Convenient e-waste collection
+* Transparent category-based pricing
+* Collector job discovery
+* Digital weighing and grading
+* Secure digital payments
+* Local aggregation hubs
+* Batch consolidation
+* QR-based material tracking
+* Recycler-side processing records
+* EPR/compliance records
+* Operational analytics
+* Fraud/anomaly monitoring
+* Environmental impact visibility
+
+### Primary Workflow
+
+Implement the following core lifecycle:
+
+```text
+Consumer
+   ↓
+Create Pickup Request
+   ↓
+Nearby Collector
+   ↓
+Collector Accepts Job
+   ↓
+Collector Visits Consumer
+   ↓
+Inspect + Weigh + Grade + Photograph
+   ↓
+Final Price Calculation
+   ↓
+Digital Payment
+   ↓
+Collector Delivers Material to Hub
+   ↓
+Hub Verifies Weight
+   ↓
+Inventory Updated
+   ↓
+Material Consolidated Into Batch
+   ↓
+Batch Sealed + QR / Manifest Generated
+   ↓
+Recycler Receives Batch
+   ↓
+Processing / Recovery Data
+   ↓
+EPR / Compliance Record
+```
+
+Every important material movement should be traceable.
+
+### Target Users
+
+#### Consumer
+
+A household or individual with unwanted electronic products.
+
+Examples:
+
+* Old phones
+* Laptops
+* Batteries
+* Chargers
+* PCBs
+* Displays
+* Appliances
+* Electronic accessories
+
+#### Collector
+
+A field worker who collects e-waste.
+
+Examples:
+
+* Kabadiwala
+* Raddiwala
+* Ragpicker
+* Junk collector
+* Scrap dealer
+* Field collection agent
+
+#### Hub Manager
+
+An operator responsible for a local aggregation facility.
+
+#### Recycler
+
+A formal recycling organization receiving consolidated e-waste.
+
+#### Admin
+
+The platform's operational and governance authority.
+
+### Product Scope
+
+#### MVP
+
+The initial product must include:
+
+* Authentication
+* Role-based access control
+* Consumer registration
+* Collector registration
+* Pickup creation
+* Nearby collector jobs
+* Pickup claiming
+* E-waste categories
+* Estimated valuation
+* Actual weighing
+* Material grading
+* Proof photographs
+* Price calculation
+* Payment records
+* Consumer dashboard
+* Collector dashboard
+* Collector earnings/wallet
+* Basic hub operations
+* Hub inventory
+* Batch creation
+* Recycler management
+* Basic EPR records
+* Notifications
+* Audit logging
+* Admin analytics
+* Basic AI-assisted classification
+
+The MVP must be understandable and demonstrable by a college student while maintaining clean architecture suitable for future production expansion.
+
+### Future Scope
+
+After the core MVP, the system may expand into:
+
+* Advanced AI material classification
+* Fraud/anomaly detection
+* Dynamic pricing assistance
+* Pickup route optimization
+* Demand forecasting
+* Advanced operational intelligence
+* Advanced compliance reporting
+* Larger recycler networks
+* More sophisticated offline collector workflows
+
+Do not implement advanced infrastructure merely for appearance. Build the foundation first.
+
+---
+
+================================================================================
+
+## 2. TECH STACK
+
+================================================================================
+
+Choose a stack that balances:
+
+**SIMPLICITY + PRODUCTION READINESS + SCALABILITY**
+
+Use technologies understandable by a college student.
+
+### Frontend
+
+* Next.js
+* React
+* TypeScript
+* App Router
+* Tailwind CSS
+* shadcn/ui
+* Lucide React
+* React Hook Form
+* Zod
+* TanStack Query
+* Zustand
+* Recharts
+* TanStack Table
+* Sonner
+
+### Backend
+
+Use:
+
+* Node.js
+* Express.js
+* TypeScript
+
+Architecture:
+
+```text
+Route
+  ↓
+Controller
+  ↓
+Service
+  ↓
+Repository
+  ↓
+Prisma
+  ↓
+PostgreSQL
+```
+
+Do not introduce NestJS or another complex backend framework unless there is a demonstrated requirement.
+
+### Database
+
+Use:
+
+* PostgreSQL
+* Prisma ORM
+
+Use PostGIS where geospatial queries are genuinely required.
+
+Primary database responsibilities:
+
+* Users
+* Roles
+* Addresses
+* Collectors
+* Pickups
+* Pickup items
+* Payments
+* Wallets
+* Hubs
+* Inventory
+* Batches
+* Recyclers
+* EPR records
+* Notifications
+* AI analysis
+* Audit logs
+
+### Redis
+
+Redis is optional and should only be used where useful:
+
+* Rate limiting
+* OTP temporary storage
+* Caching
+* Background jobs
+
+Use BullMQ for background processing when required.
+
+Do not introduce Kafka for the initial application.
+
+### Storage
+
+Prefer:
+
+* Cloudinary for MVP
+
+or:
+
+* AWS S3 / S3-compatible storage
+
+Use storage for:
+
+* E-waste proof photographs
+* Collection images
+* Certificates
+* Manifest documents
+* Reports
+
+### Authentication
+
+Use:
+
+* JWT access tokens
+* Refresh tokens
+* HTTP-only cookies
+* Secure cookies in production
+* Server-side RBAC
+
+### Payments
+
+Use a trusted provider such as:
+
+* Razorpay / RazorpayX
+
+Do not build a custom payment gateway.
+
+Never store:
+
+* UPI PIN
+* Card CVV
+* Banking passwords
+* Raw banking credentials
+
+### Maps
+
+Use:
+
+* Google Maps API
+
+or:
+
+* OpenStreetMap + Leaflet
+
+Use maps primarily for:
+
+* Pickup location
+* Collector proximity
+* Hub locations
+* Navigation support
+* Route visualization
+
+### Testing
+
+Use:
+
+* Vitest
+* React Testing Library
+* Jest
+* Supertest
+
+### API Documentation
+
+Use:
+
+* Swagger / OpenAPI
+
+### Deployment
+
+Prefer:
+
+* Frontend: Vercel
+* Backend: Render or Railway
+* Database: Supabase or Neon
+* Storage: Cloudinary
+* Redis: Upstash if required
+
+================================================================================
+
+## 3. DEVELOPMENT RULES
+
+================================================================================
+
+### General Principles
+
+Build the application as a real product, not a generic CRUD demonstration.
+
+Prioritize:
+
+* Clear architecture
+* Maintainability
+* Readability
+* Reusability
+* Security
+* Accessibility
+* Responsive design
+* Traceability
+* Correct business logic
+
+Do not over-engineer.
+
+### TypeScript
+
+Use TypeScript everywhere.
+
+Enable strict TypeScript mode.
+
+Do not use `any` unless absolutely unavoidable and explicitly justified.
+
+Use:
+
+* Interfaces/types
+* Zod schemas
+* Typed API responses
+* Typed database operations
+* Typed component props
+
+### Frontend Architecture
+
+Organize frontend features logically:
+
+```text
+features/
+├── auth/
+├── consumer/
+├── collector/
+├── pickups/
+├── payments/
+├── hubs/
+├── batches/
+├── recyclers/
+├── epr/
+├── notifications/
+└── analytics/
+```
+
+Create reusable components for:
+
+* Cards
+* Tables
+* Forms
+* Dialogs
+* Modals
+* Status badges
+* Buttons
+* Empty states
+* Loading states
+* Error states
+* Confirmation dialogs
+* Charts
+* Filters
+
+### Backend Architecture
+
+Follow:
+
+```text
+Routes
+ ↓
+Controllers
+ ↓
+Services
+ ↓
+Repositories
+ ↓
+Prisma
+ ↓
+PostgreSQL
+```
+
+Controllers must remain thin.
+
+Business logic belongs in services.
+
+Database operations should not be scattered throughout controllers.
+
+### API Design
+
+All APIs use:
+
+```text
+/api/v1/
+```
+
+Use consistent success and error responses.
+
+Success:
+
+```json
+{
+  "success": true,
+  "message": "Operation successful",
+  "data": {}
+}
+```
+
+Error:
+
+```json
+{
+  "success": false,
+  "message": "Error message",
+  "errors": []
+}
+```
+
+### Financial Operations
+
+Financial operations must be idempotent.
+
+Every payment operation must use a unique idempotency key.
+
+Prevent duplicate payments caused by:
+
+* Page refresh
+* Network retry
+* Duplicate requests
+* Queue retries
+
+Financial history must be immutable.
+
+### Auditability
+
+Track important operations including:
+
+* Registration
+* Pickup creation
+* Pickup assignment
+* Weight changes
+* Price changes
+* Payment creation
+* Payment status changes
+* Batch creation
+* Batch dispatch
+* Batch receipt
+* EPR record creation
+* Admin pricing changes
+
+Record:
+
+* Actor
+* Action
+* Entity
+* Entity ID
+* Timestamp
+* Previous value where relevant
+* New value where relevant
+* IP address where appropriate
+
+Never hard-delete important operational or financial records.
+
+### Validation
+
+Validate on both:
+
+* Frontend
+* Backend
+
+Never trust frontend validation alone.
+
+Use Zod for shared validation wherever practical.
+
+### Error Handling
+
+Every major workflow must include:
+
+* Loading state
+* Success state
+* Empty state
+* Validation error
+* API error
+* Network error
+* Permission error
+* Retry option where appropriate
+
+Do not expose stack traces or internal database errors to users.
+
+### Logging
+
+Use structured application logging.
+
+Log:
+
+* Authentication events
+* API failures
+* Payment events
+* Background job failures
+* Important state transitions
+* Security events
+
+Never log sensitive credentials or secrets.
+
+### Testing
+
+Test critical business logic including:
+
+* Authentication
+* RBAC
+* Pickup creation
+* Pickup claiming
+* Weight validation
+* Price calculation
+* Payment idempotency
+* Hub reconciliation
+* Batch creation
+* Pricing changes
+* Status transitions
+
+### Environment Variables
+
+Never hard-code secrets.
+
+Use environment variables for:
+
+* Database
+* JWT secrets
+* Redis
+* Payment provider
+* Storage
+* Maps
+* Email
+* AI services
+
+### Responsive Design
+
+The entire application must work across:
+
+* Mobile
+* Tablet
+* Desktop
+
+The collector experience must be especially optimized for mobile devices.
+
+### Accessibility
+
+Use:
+
+* Semantic HTML
+* Keyboard navigation
+* Visible focus states
+* Accessible form labels
+* Appropriate color contrast
+* ARIA attributes where needed
+* Touch-friendly controls
+
+================================================================================
+
+## 4. ROLES
+
+================================================================================
+
+The application has five primary roles:
+
+1. CONSUMER
+2. COLLECTOR
+3. HUB_MANAGER
+4. RECYCLER
+5. ADMIN
+
+### Permission Matrix
+
+| Capability            | Consumer | Collector | Hub Manager | Recycler |  Admin |
+| --------------------- | -------: | --------: | ----------: | -------: | -----: |
+| Manage own profile    |        ✓ |         ✓ |          ✓ |        ✓ |      ✓ |
+| Create pickup         |        ✓ |         ✗ |          ✗ |        ✗ |      ✓ |
+| View own pickups      |        ✓ |         ✓ |          ✗ |        ✗ |      ✓ |
+| Claim pickup          |        ✗ |         ✓ |          ✗ |        ✗ |      ✓ |
+| Record weight         |        ✗ |         ✓ |          ✓ |        ✗ |      ✓ |
+| Upload proof          |        ✗ |         ✓ |          ✓ |        ✓ |      ✓ |
+| Receive payment       |        ✓ |         ✓ |          ✗ |        ✗ |      ✓ |
+| Manage wallet         |        ✗ |         ✓ |          ✗ |        ✗ |      ✓ |
+| Manage hub inventory  |        ✗ |         ✗ |          ✓ |        ✗ |      ✓ |
+| Create batch          |        ✗ |         ✗ |          ✓ |        ✗ |      ✓ |
+| Dispatch batch        |        ✗ |         ✗ |          ✓ |        ✗ |      ✓ |
+| Receive batch         |        ✗ |         ✗ |          ✗ |        ✓ |      ✓ |
+| Enter processing data |        ✗ |         ✗ |          ✗ |        ✓ |      ✓ |
+| EPR records           |     View |         ✗ |        View |    Manage | Manage |
+| Pricing management    |     View |       View |        View |      View | Manage |
+| User management       |        ✗ |         ✗ |           ✗ |       ✗ |      ✓ |
+| Analytics             | Personal |   Personal |         Hub | Recycler | Global |
+| Audit logs            |        ✗ |         ✗ |     Limited |  Limited |      ✓ |
+| Fraud monitoring      |        ✗ |         ✗ |      Report |   Report | Manage |
+
+### CONSUMER
+
+#### Purpose
+
+Allow individuals to conveniently sell/dispose of e-waste and track the entire transaction.
+
+#### Permissions
+
+Consumers can:
+
+* Register/login
+* Manage their profile
+* Manage pickup addresses
+* Request pickups
+* Select e-waste categories
+* View estimated value
+* Select pickup time
+* Track pickup
+* View final weight
+* View payment
+* View transaction history
+* View certificates
+* View environmental impact
+* Receive notifications
+
+Consumers cannot:
+
+* Assign themselves as collectors
+* Modify final recorded weights
+* Modify prices
+* Access hub operations
+* Access another consumer's data
+
+#### Dashboard
+
+Show:
+
+* Active pickup
+* Upcoming pickup
+* Total e-waste sold
+* Total earnings
+* Items recycled
+* Environmental impact
+* Recent transactions
+
+Quick actions:
+
+* Sell E-Waste
+* Schedule Pickup
+* Track Pickup
+* View Earnings
+
+### COLLECTOR
+
+#### Purpose
+
+Provide a practical field-collection interface.
+
+Collector types:
+
+* Kabadiwala
+* Raddiwala
+* Ragpicker
+* Junk Collector
+* Scrap Dealer
+* Field Agent
+
+#### Dashboard
+
+Show:
+
+* Nearby jobs
+* Today's jobs
+* Today's earnings
+* Pending jobs
+* Completed jobs
+* Total weight
+* Wallet balance
+
+#### Workflow
+
+```text
+View Nearby Job
+ ↓
+Open Job Details
+ ↓
+Accept Job
+ ↓
+Navigate
+ ↓
+Arrive
+ ↓
+Inspect Material
+ ↓
+Weigh Material
+ ↓
+Grade Material
+ ↓
+Capture Proof
+ ↓
+Calculate Final Value
+ ↓
+Confirm Collection
+ ↓
+Payment Triggered
+ ↓
+Deliver to Hub
+```
+
+#### Restrictions
+
+Collectors should only see information required to complete the pickup.
+
+Do not expose unnecessary consumer PII.
+
+### HUB MANAGER
+
+#### Purpose
+
+Manage local material aggregation.
+
+Dashboard:
+
+* Today's intake
+* Current inventory
+* Category-wise weight
+* Pending reconciliation
+* Open batches
+* Dispatches
+* Storage capacity
+* Material loss percentage
+
+Actions:
+
+* Scan collector QR
+* Receive material
+* Verify weight
+* Compare expected vs actual weight
+* Record discrepancy
+* Assign storage bin
+* Manage inventory
+* Create batch
+* Seal batch
+* Generate manifest
+* Dispatch batch
+* Confirm recycler receipt
+
+If hub weight differs from collector aggregate by more than the configured threshold:
+
+* Block automatic approval
+* Create discrepancy alert
+* Require supervisor/admin review
+
+### RECYCLER
+
+#### Purpose
+
+Manage formal downstream recycling operations.
+
+Dashboard:
+
+* Incoming batches
+* Received weight
+* Processing status
+* Material categories
+* Recovery/yield
+* EPR records
+
+Actions:
+
+* View assigned batches
+* Accept/reject incoming batches
+* Confirm received weight
+* Enter processing results
+* Enter recovery/yield
+* Upload processing documents
+* Generate EPR records
+* Download compliance records
+
+### ADMIN
+
+#### Purpose
+
+Operate and monitor the entire ecosystem.
+
+Dashboard KPIs:
+
+* Total users
+* Active collectors
+* Pickup requests
+* Completed collections
+* Total e-waste collected
+* Hub inventory
+* Batches in transit
+* Recycler intake
+* Payments
+* Revenue/margin
+* Material loss
+* EPR records
+* Fraud alerts
+
+Admin can:
+
+* Manage users
+* Verify collectors
+* Manage hubs
+* Manage recyclers
+* Monitor pickups
+* Manage pricing
+* Monitor payments
+* Monitor batches
+* Monitor inventory
+* Manage EPR records
+* View analytics
+* Generate reports
+* View audit logs
+* Review fraud alerts
+* Configure system settings
+
+Every administrative pricing override must create an audit record.
+
+================================================================================
+
+## 5. DATABASE
+
+================================================================================
+
+Use PostgreSQL with Prisma.
+
+Keep the database normalized and understandable.
+
+Do not introduce unnecessary entities.
+
+### USER
+
+```text
+User
+- id
+- fullName
+- phone
+- email
+- passwordHash
+- role
+- preferredLanguage
+- isVerified
+- status
+- createdAt
+- updatedAt
+```
+
+Roles:
+
+```text
+CONSUMER
+COLLECTOR
+HUB_MANAGER
+RECYCLER
+ADMIN
+```
+
+Constraints:
+
+* Phone unique
+* Email unique where provided
+* Role required
+* Password hash never exposed through API
+
+Indexes:
+
+* phone
+* email
+* role
+* status
+
+### COLLECTOR
+
+```text
+Collector
+- id
+- userId
+- collectorType
+- serviceRadiusKm
+- verificationStatus
+- rating
+- totalCollections
+- totalWeightKg
+- createdAt
+- updatedAt
+```
+
+Collector types:
+
+```text
+KABADIWALA
+RAGPICKER
+JUNK_COLLECTOR
+FIELD_AGENT
+SCRAP_DEALER
+```
+
+Relationship:
+
+```text
+User 1 → 1 Collector
+```
+
+Indexes:
+
+* userId
+* verificationStatus
+* collectorType
+
+### ADDRESS
+
+```text
+Address
+- id
+- userId
+- addressLine
+- city
+- state
+- postalCode
+- latitude
+- longitude
+- isDefault
+- createdAt
+```
+
+Relationship:
+
+```text
+User 1 → Many Addresses
+```
+
+Use geospatial indexing where necessary.
+
+### WASTE CATEGORY
+
+```text
+WasteCategory
+- id
+- name
+- description
+- baseRatePerKg
+- minRatePerKg
+- maxRatePerKg
+- isActive
+- createdAt
+- updatedAt
+```
+
+Initial categories:
+
+```text
+PCB_HIGH_GRADE
+PCB_LOW_GRADE
+LITHIUM_BATTERY
+DISPLAY_UNIT
+MIXED_APPLIANCE
+PLASTIC_CASING
+METALS
+OTHER_E_WASTE
+```
+
+### PRICE CATALOG
+
+```text
+PriceCatalog
+- id
+- categoryId
+- region
+- baseRatePerKg
+- minimumRatePerKg
+- maximumRatePerKg
+- effectiveFrom
+- effectiveTo
+- updatedBy
+```
+
+Every price used for a financial transaction must be retained with that transaction.
+
+### PICKUP
+
+```text
+Pickup
+- id
+- consumerId
+- collectorId
+- hubId
+- addressId
+- status
+- scheduledDate
+- scheduledSlot
+- estimatedAmount
+- finalAmount
+- latitude
+- longitude
+- notes
+- createdAt
+- updatedAt
+```
+
+Statuses:
+
+```text
+REQUESTED
+ASSIGNED
+COLLECTOR_ARRIVED
+COLLECTED
+PAYMENT_PENDING
+COMPLETED
+CANCELLED
+DELIVERED_TO_HUB
+```
+
+Relationships:
+
+```text
+Consumer 1 → Many Pickups
+Collector 1 → Many Pickups
+Hub 1 → Many Pickups
+```
+
+Indexes:
+
+* consumerId
+* collectorId
+* hubId
+* status
+* scheduledDate
+* geolocation
+
+### PICKUP ITEM
+
+```text
+PickupItem
+- id
+- pickupId
+- categoryId
+- estimatedWeightKg
+- actualWeightKg
+- pricePerKg
+- totalAmount
+- imageProofUrl
+- aiClassification
+- createdAt
+```
+
+Relationships:
+
+```text
+Pickup 1 → Many PickupItems
+PickupItem → WasteCategory
+```
+
+Constraints:
+
+* Actual weight positive
+* Maximum three decimal places
+* Price must be positive
+* Total amount must correspond to actual weight × recorded price
+
+### PAYMENT
+
+```text
+Payment
+- id
+- pickupId
+- payerId
+- payeeId
+- amount
+- paymentMethod
+- transactionId
+- status
+- idempotencyKey
+- createdAt
+- completedAt
+```
+
+Statuses:
+
+```text
+PENDING
+PROCESSING
+COMPLETED
+FAILED
+REFUNDED
+```
+
+Constraints:
+
+* idempotencyKey unique
+* transactionId unique where present
+* amount positive
+
+Payments must never be hard-deleted.
+
+### WALLET
+
+```text
+Wallet
+- id
+- collectorId
+- balance
+- totalEarned
+- totalWithdrawn
+- updatedAt
+```
+
+### WALLET TRANSACTION
+
+```text
+WalletTransaction
+- id
+- walletId
+- type
+- amount
+- referenceId
+- description
+- createdAt
+```
+
+Historical wallet transactions are immutable.
+
+### HUB
+
+```text
+Hub
+- id
+- name
+- managerId
+- address
+- latitude
+- longitude
+- storageCapacityKg
+- licenseNumber
+- status
+- createdAt
+- updatedAt
+```
+
+Indexes:
+
+* managerId
+* status
+* geolocation
+
+### INVENTORY ITEM
+
+```text
+InventoryItem
+- id
+- hubId
+- categoryId
+- quantityKg
+- storageBin
+- updatedAt
+```
+
+Maintain category-level inventory.
+
+### BATCH
+
+```text
+Batch
+- id
+- batchCode
+- hubId
+- recyclerId
+- categoryId
+- grossWeightKg
+- netWeightKg
+- status
+- qrCode
+- manifestUrl
+- shippedAt
+- receivedAt
+- createdAt
+```
+
+Statuses:
+
+```text
+OPEN
+SEALED
+IN_TRANSIT
+RECEIVED
+PROCESSING
+PROCESSED
+CANCELLED
+```
+
+Batch codes must be unique.
+
+### RECYCLER
+
+```text
+Recycler
+- id
+- userId
+- companyName
+- licenseNumber
+- address
+- city
+- state
+- contactNumber
+- verificationStatus
+- createdAt
+- updatedAt
+```
+
+### EPR RECORD
+
+```text
+EprRecord
+- id
+- batchId
+- recyclerId
+- certificateNumber
+- certifiedWeightKg
+- issuedTo
+- certificateUrl
+- cpcbSyncStatus
+- issuedAt
+```
+
+Certificate number must be unique.
+
+### NOTIFICATION
+
+```text
+Notification
+- id
+- userId
+- title
+- message
+- type
+- isRead
+- createdAt
+```
+
+### AI ANALYSIS
+
+```text
+WasteImageAnalysis
+- id
+- pickupItemId
+- imageUrl
+- predictedCategory
+- confidenceScore
+- fraudRiskScore
+- createdAt
+```
+
+AI output must remain advisory.
+
+### AUDIT LOG
+
+```text
+AuditLog
+- id
+- userId
+- action
+- entityType
+- entityId
+- oldValue
+- newValue
+- ipAddress
+- createdAt
+```
+
+### Important Relationships
+
+```text
+User 1 → 1 Collector
+User 1 → Many Addresses
+
+Consumer 1 → Many Pickups
+Collector 1 → Many Pickups
+Hub 1 → Many Pickups
+
+Pickup 1 → Many PickupItems
+Pickup 1 → Many Payments
+
+Hub 1 → Many InventoryItems
+Hub 1 → Many Batches
+
+Recycler 1 → Many Batches
+Batch 1 → Many EPR Records
+
+User 1 → Many Notifications
+User 1 → Many AuditLogs
+```
+
+### Important Database Rules
+
+Use indexes for:
+
+* Foreign keys
+* Status fields frequently filtered
+* Phone/email
+* Batch codes
+* Transaction IDs
+* Geospatial pickup/hub locations
+* Scheduled pickup times
+
+Never hard-delete:
+
+* Payments
+* Pickups
+* Pickup items
+* Batches
+* EPR records
+* Audit records
+* Wallet transactions
+
+Use status changes or archival fields instead.
+
+================================================================================
+
+## 6. APIs
+
+================================================================================
+
+All REST APIs must use:
+
+```text
+/api/v1/
+```
+
+Use consistent response formats.
+
+### Authentication
+
+```http
+POST /api/v1/auth/register
+POST /api/v1/auth/login
+POST /api/v1/auth/refresh
+POST /api/v1/auth/logout
+POST /api/v1/auth/send-otp
+POST /api/v1/auth/verify-otp
+```
+
+### Users
+
+```http
+GET /api/v1/users/me
+PUT /api/v1/users/me
+PUT /api/v1/users/me/password
+```
+
+### Pickups
+
+```http
+POST /api/v1/pickups
+GET /api/v1/pickups
+GET /api/v1/pickups/:id
+PATCH /api/v1/pickups/:id/cancel
+
+GET /api/v1/pickups/nearby
+PATCH /api/v1/pickups/:id/claim
+PATCH /api/v1/pickups/:id/arrived
+
+POST /api/v1/pickups/:id/items
+POST /api/v1/pickups/:id/complete
+```
+
+### Payments
+
+```http
+POST /api/v1/payments
+GET /api/v1/payments
+GET /api/v1/payments/:id
+POST /api/v1/payments/webhook
+```
+
+Payment webhooks must verify the payment provider's signature.
+
+### Collector
+
+```http
+GET /api/v1/collectors/profile
+PUT /api/v1/collectors/profile
+GET /api/v1/collectors/jobs
+GET /api/v1/collectors/earnings
+GET /api/v1/collectors/wallet
+```
+
+### Hubs
+
+```http
+GET /api/v1/hubs
+GET /api/v1/hubs/:id
+GET /api/v1/hubs/:id/inventory
+
+POST /api/v1/hubs/:id/intake
+POST /api/v1/hubs/:id/inventory/reconcile
+```
+
+### Batches
+
+```http
+POST /api/v1/batches
+GET /api/v1/batches
+GET /api/v1/batches/:id
+POST /api/v1/batches/:id/seal
+POST /api/v1/batches/:id/dispatch
+POST /api/v1/batches/:id/receive
+```
+
+### Recyclers
+
+```http
+GET /api/v1/recyclers
+GET /api/v1/recyclers/:id
+GET /api/v1/recyclers/:id/batches
+POST /api/v1/recyclers/:id/process
+```
+
+### Pricing
+
+```http
+GET /api/v1/pricing
+GET /api/v1/pricing/:category
+PUT /api/v1/admin/pricing/:id
+```
+
+### EPR
+
+```http
+GET /api/v1/epr
+GET /api/v1/epr/:id
+POST /api/v1/epr
+GET /api/v1/epr/:id/download
+```
+
+### Notifications
+
+```http
+GET /api/v1/notifications
+PATCH /api/v1/notifications/:id/read
+PATCH /api/v1/notifications/read-all
+```
+
+### Admin
+
+```http
+GET /api/v1/admin/dashboard
+GET /api/v1/admin/users
+GET /api/v1/admin/pickups
+GET /api/v1/admin/payments
+GET /api/v1/admin/batches
+GET /api/v1/admin/audit-logs
+GET /api/v1/admin/analytics
+GET /api/v1/admin/fraud-alerts
+```
+
+### AI
+
+```http
+POST /api/v1/ai/classify-waste
+POST /api/v1/ai/analyze-image
+```
+
+### Uploads
+
+Provide protected upload functionality for:
+
+* Proof photographs
+* E-waste photographs
+* Certificates
+* Manifests
+* Processing documents
+
+Validate file type, size and permissions.
+
+### Search and Filtering
+
+List APIs should support:
+
+```text
+?page=1
+&limit=20
+&search=
+&sort=
+&order=asc
+```
+
+Where relevant, additionally support:
+
+```text
+status=
+category=
+dateFrom=
+dateTo=
+city=
+hubId=
+collectorId=
+recyclerId=
+```
+
+### API Rules
+
+Every endpoint must:
+
+* Validate authentication where required
+* Validate authorization
+* Validate input
+* Return consistent responses
+* Handle errors safely
+* Avoid leaking private information
+* Log important operational actions
+* Respect role permissions
+
+================================================================================
+
+## 7. ROUTES
+
+================================================================================
+
+### Public
+
+```text
+/
+ /about
+ /how-it-works
+ /pricing
+ /contact
+```
+
+The landing page should explain:
+
+* E-waste problem
+* EcoTrace approach
+* How collection works
+* Benefits
+* Impact
+* Collector ecosystem
+* Recycler ecosystem
+* Call to action
+
+### Authentication
+
+```text
+/auth/login
+/auth/register
+/auth/verify
+/auth/forgot-password
+```
+
+Support language selection during onboarding where appropriate.
+
+### Consumer
+
+```text
+/consumer/dashboard
+/consumer/pickups
+/consumer/pickups/new
+/consumer/pickups/[id]
+/consumer/earnings
+/consumer/certificates
+/consumer/notifications
+/consumer/profile
+/consumer/settings
+```
+
+### Collector
+
+```text
+/collector/dashboard
+/collector/jobs
+/collector/jobs/[id]
+/collector/weigh-in/[id]
+/collector/wallet
+/collector/history
+/collector/notifications
+/collector/profile
+/collector/settings
+```
+
+The collector interface must be mobile-first and PWA-friendly.
+
+### Hub Manager
+
+```text
+/hub/dashboard
+/hub/intake
+/hub/inventory
+/hub/batches
+/hub/batches/new
+/hub/batches/[id]
+/hub/manifests
+/hub/reconciliation
+/hub/reports
+```
+
+### Recycler
+
+```text
+/recycler/dashboard
+/recycler/batches
+/recycler/batches/[id]
+/recycler/processing
+/recycler/epr
+/recycler/reports
+/recycler/profile
+```
+
+### Admin
+
+```text
+/admin/dashboard
+/admin/users
+/admin/collectors
+/admin/consumers
+/admin/hubs
+/admin/recyclers
+/admin/pickups
+/admin/inventory
+/admin/batches
+/admin/payments
+/admin/pricing
+/admin/epr
+/admin/analytics
+/admin/fraud
+/admin/audit-logs
+/admin/settings
+```
+
+### Route Protection
+
+Protect every private route through authentication and server-side authorization.
+
+Do not rely only on hiding frontend navigation items.
+
+================================================================================
+
+## 8. VALIDATION
+
+================================================================================
+
+Use Zod validation on both frontend and backend.
+
+### Phone
+
+Indian mobile number:
+
+```regex
+^[6-9][0-9]{9}$
+```
+
+### Email
+
+Use standard email validation.
+
+### Password
+
+Minimum 8 characters.
+
+Require:
+
+* Uppercase
+* Lowercase
+* Number
+* Special character
+
+### Weight
+
+Weight must:
+
+* Be greater than zero
+* Support maximum three decimal places
+* Be at least `0.050 kg` for collection items
+
+### Price
+
+Price must:
+
+* Be positive
+* Respect configured minimum and maximum rates
+* Store the actual price used during the transaction
+* Not silently change after the transaction is recorded
+
+### High-Value Materials
+
+For:
+
+```text
+PCB_HIGH_GRADE
+LITHIUM_BATTERY
+```
+
+above a configurable monetary threshold require:
+
+* Proof photograph
+* Collector confirmation
+* Additional audit information
+
+AI classification alone must never finalize a high-value transaction.
+
+### Location
+
+Latitude:
+
+```text
+-90 to +90
+```
+
+Longitude:
+
+```text
+-180 to +180
+```
+
+### Discrepancy
+
+If:
+
+```text
+ABS(hubWeight - collectorWeight) / collectorWeight > 5%
+```
+
+then:
+
+* Block automatic approval
+* Create discrepancy alert
+* Require manual review
+
+### Payment
+
+Every payment request requires a unique idempotency key.
+
+A repeated request with the same idempotency key must not create another financial transaction.
+
+### File Uploads
+
+Allowed:
+
+```text
+jpg
+jpeg
+png
+webp
+pdf
+```
+
+Default limits:
+
+```text
+Images: 10 MB
+Documents: 20 MB
+```
+
+Validate:
+
+* MIME type
+* File extension
+* File size
+* User permission
+* Storage destination
+
+### Status Transitions
+
+Enforce valid workflow transitions server-side.
+
+Example:
+
+```text
+REQUESTED
+ ↓
+ASSIGNED
+ ↓
+COLLECTOR_ARRIVED
+ ↓
+COLLECTED
+ ↓
+PAYMENT_PENDING
+ ↓
+COMPLETED
+ ↓
+DELIVERED_TO_HUB
+```
+
+Do not allow arbitrary status changes through generic update endpoints.
+
+Equivalent controlled transitions must exist for:
+
+* Batches
+* Payments
+* EPR records
+* Verification workflows
+
+================================================================================
+
+## 9. SECURITY
+
+================================================================================
+
+Security must be designed into the application rather than added later.
+
+### Authentication
+
+Use:
+
+* JWT access tokens
+* Refresh tokens
+* HTTP-only cookies
+* Secure cookies in production
+* Short-lived access tokens
+
+### Authorization
+
+Implement server-side RBAC.
+
+Never trust:
+
+* Frontend role values
+* Client-provided user IDs
+* Client-provided ownership information
+
+Every protected request must verify that the authenticated user has permission to access the requested resource.
+
+### Password Security
+
+Use:
+
+* bcrypt or Argon2
+
+Never store plaintext passwords.
+
+### Session / Token Security
+
+Implement:
+
+* Token expiration
+* Refresh token rotation where appropriate
+* Secure cookies
+* SameSite protection
+* Logout/revocation strategy
+
+### Rate Limiting
+
+Use Redis where appropriate to protect:
+
+* Login
+* OTP
+* Password reset
+* Payment endpoints
+* Public APIs
+* AI endpoints
+
+### CORS
+
+Allow only configured trusted origins.
+
+Never use unrestricted production CORS.
+
+### Input Security
+
+Implement:
+
+* Schema validation
+* Request size limits
+* Safe database queries
+* XSS protection
+* Secure headers
+* Helmet
+* Appropriate CSRF protection
+* Authorization middleware
+
+### File Security
+
+Never blindly trust uploaded files.
+
+Validate:
+
+* MIME type
+* Extension
+* Size
+* User permission
+
+Private documents must use:
+
+* Signed URLs
+* Expiring URLs
+* Authorization checks
+
+### PII Protection
+
+Protect:
+
+* Phone numbers
+* Email
+* Address
+* Location
+* UPI information
+* Identity documents
+
+Collectors should receive only the information necessary to perform a pickup.
+
+Avoid exposing unnecessary consumer information.
+
+### Payment Security
+
+Never store:
+
+* UPI PIN
+* Card CVV
+* Bank passwords
+* Raw banking credentials
+
+Verify payment webhooks through the payment provider's signature mechanism.
+
+Use idempotency for payment operations.
+
+### Audit Logs
+
+Log security-sensitive and operationally significant actions.
+
+Audit records should not be editable or hard-deleted.
+
+### Data Deletion
+
+Do not hard-delete:
+
+* Payments
+* Pickups
+* Batches
+* EPR records
+* Audit records
+* Wallet transactions
+
+Use controlled status/archival mechanisms.
+
+### AI Privacy
+
+Minimize personally identifiable information sent to external AI services.
+
+AI services should receive only the data necessary for classification or analysis.
+
+### Secrets
+
+Never commit secrets to source control.
+
+Use environment variables.
+
+Example:
+
+```text
+DATABASE_URL=
+JWT_SECRET=
+JWT_REFRESH_SECRET=
+REDIS_URL=
+
+RAZORPAY_KEY_ID=
+RAZORPAY_KEY_SECRET=
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+GOOGLE_MAPS_API_KEY=
+
+EMAIL_HOST=
+EMAIL_USER=
+EMAIL_PASSWORD=
+
+NEXT_PUBLIC_API_URL=
+```
+
+================================================================================
+
+## 10. DEPLOYMENT
+
+================================================================================
+
+Create a simple production deployment architecture.
+
+```text
+                USERS
+                  │
+                  ▼
+        ┌──────────────────┐
+        │ Next.js / Vercel │
+        └────────┬─────────┘
+                 │
+                 ▼
+        ┌──────────────────┐
+        │ Express API      │
+        │ Render/Railway   │
+        └────────┬─────────┘
+                 │
+       ┌─────────┼──────────┐
+       ▼         ▼          ▼
+ PostgreSQL    Redis     Storage
+ Supabase/     Upstash   Cloudinary/
+ Neon                     S3
+```
+
+### Frontend
+
+Deploy Next.js through Vercel.
+
+Use GitHub integration.
+
+### Backend
+
+Deploy Express API through:
+
+* Render
+
+or:
+
+* Railway
+
+### Database
+
+Use:
+
+* Supabase PostgreSQL
+
+or:
+
+* Neon PostgreSQL
+
+Use Prisma migrations.
+
+If geospatial functionality requires PostGIS, use a provider/configuration that supports it.
+
+### Redis
+
+Use Upstash if Redis is required.
+
+Use it for:
+
+* Rate limiting
+* Caching
+* OTP temporary data
+* Background jobs
+
+### Storage
+
+Use Cloudinary for MVP.
+
+Use S3-compatible storage as scale requirements increase.
+
+### CI/CD
+
+Use GitHub Actions.
+
+Pipeline:
+
+```text
+Git Push
+   ↓
+Install
+   ↓
+Lint
+   ↓
+Test
+   ↓
+Build
+   ↓
+Deploy
+```
+
+### Environment Separation
+
+Maintain separate environments for:
+
+* Development
+* Testing
+* Production
+
+Never use production credentials in development.
+
+### Database Backups
+
+Configure managed database backups.
+
+Support point-in-time recovery where the selected provider allows it.
+
+Never rely solely on application-level data exports as the only backup.
+
+### Health Check
+
+Implement:
+
+```http
+GET /api/v1/health
+```
+
+Response:
+
+```json
+{
+  "success": true,
+  "message": "EcoTrace API is healthy"
+}
+```
+
+### Monitoring
+
+Monitor:
+
+* Application errors
+* API failures
+* Database health
+* Background jobs
+* Payment failures
+* Authentication failures
+
+Use Sentry or an equivalent monitoring service.
+
+### Testing Before Deployment
+
+Critical tests must pass before production deployment.
+
+Target at least 80% coverage for important business logic.
+
+================================================================================
+
+## 11. AI RULES
+
+================================================================================
+
+AI should add genuine value but must never become a dependency for basic platform functionality.
+
+If an AI service becomes unavailable:
+
+**EcoTrace must continue operating through normal manual workflows.**
+
+AI must assist humans rather than silently replace critical business decisions.
+
+### AI FEATURE 1 — E-WASTE IMAGE CLASSIFICATION
+
+#### Purpose
+
+Assist collectors/operators in identifying e-waste material categories.
+
+#### Input
+
+A photograph of collected e-waste.
+
+#### Possible Output
+
+```json
+{
+  "category": "PCB_HIGH_GRADE",
+  "confidence": 0.91,
+  "suggestedGrade": "HIGH"
+}
+```
+
+Potential categories:
+
+* PCB
+* Battery
+* Display
+* Appliance
+* Plastic casing
+* Metal
+* Other electronics
+
+#### Workflow
+
+```text
+Collector captures image
+        ↓
+Image uploaded
+        ↓
+AI analysis
+        ↓
+Prediction + confidence
+        ↓
+Collector/operator reviews
+        ↓
+Human confirms/corrects
+        ↓
+Final category recorded
+```
+
+AI must not automatically finalize high-value material transactions.
+
+#### Failure Handling
+
+If AI fails:
+
+* Show manual classification
+* Do not block collection
+* Record AI service failure where useful
+
+#### Logging
+
+Store:
+
+* Image reference
+* Prediction
+* Confidence
+* Final human classification
+* Timestamp
+
+### AI FEATURE 2 — FRAUD / ANOMALY DETECTION
+
+#### Purpose
+
+Identify potentially suspicious patterns.
+
+Potential signals:
+
+* Unusually high weights
+* Repeated identical images
+* Unusual collection frequency
+* Repeated high-value material claims
+* Large collector/hub discrepancies
+* Suspicious payment patterns
+* Multiple accounts with similar information
+
+#### Output
+
+Create a fraud alert containing:
+
+```text
+Risk Score
+Reason
+Related Transaction
+Related User
+Relevant Metrics
+Recommended Review Action
+```
+
+Never automatically ban or permanently penalize a user solely because of an AI prediction.
+
+Human review is required.
+
+### AI FEATURE 3 — PRICE ASSISTANCE
+
+#### Purpose
+
+Assist administrators with price suggestions.
+
+Inputs may include:
+
+* Historical transaction data
+* Material category
+* Regional pricing
+* Configured price boundaries
+* Available business data
+
+AI should produce a suggested range.
+
+It must not blindly determine the final financial price.
+
+Final pricing must obey:
+
+* Admin-defined minimum
+* Admin-defined maximum
+* Regional rules
+* Material category
+* Current business configuration
+
+The exact price used in a transaction must always be stored.
+
+### AI FEATURE 4 — ROUTE OPTIMIZATION
+
+#### Purpose
+
+Recommend efficient collector routes.
+
+Optimize for:
+
+* Distance
+* Pickup time
+* Collector capacity
+* Vehicle capacity
+* Geographic clustering
+* Priority
+
+The recommendation should remain understandable.
+
+Do not make the collector interface dependent on an opaque AI recommendation.
+
+### AI FEATURE 5 — ADMIN INSIGHTS
+
+AI may analyze operational metrics to identify:
+
+* Increasing e-waste supply regions
+* Growing material categories
+* Hubs with unusual losses
+* Collectors with abnormal patterns
+* High-demand pickup areas
+* Material profitability changes
+
+AI-generated insights must display supporting metrics whenever possible.
+
+Do not present AI-generated conclusions as unquestionable facts.
+
+### AI Rules
+
+For every AI feature:
+
+* Provide confidence where applicable
+* Allow human override
+* Log AI output
+* Preserve uncertainty
+* Handle failure gracefully
+* Minimize PII
+* Isolate AI modules from core business logic
+* Never automatically perform irreversible financial actions based solely on AI
+* Never make AI mandatory for core collection functionality
+
+================================================================================
+
+## 12. UI/UX DESIGN
+
+================================================================================
+
+The product should visually communicate:
+
+**TRUST + SUSTAINABILITY + TRANSPARENCY + TECHNOLOGY + COMMUNITY + PROFESSIONAL RECYCLING**
+
+The interface should feel like a credible modern environmental technology startup, not a generic CRUD dashboard.
+
+### Visual Direction
+
+Use:
+
+* Clean white/light backgrounds
+* Green environmental accents
+* Dark readable text
+* Subtle secondary colors
+* Rounded cards
+* Clear status badges
+* Simple charts
+* Strong visual hierarchy
+* Moderate shadows
+* Generous spacing
+* Clear iconography
+* Touch-friendly controls
+
+Avoid:
+
+* Excessive gradients
+* Overly decorative interfaces
+* Dense text walls
+* Unnecessary animations
+* Excessive glassmorphism
+* Complex navigation
+* Generic template-like dashboards
+
+### Color Language
+
+Use green as the primary environmental identity.
+
+Suggested semantic colors:
+
+* Green: success, completed, recycled
+* Blue: information, active operations
+* Orange: pending/warning
+* Red: error/fraud/discrepancy
+* Purple: recycler/compliance-related areas where useful
+* Neutral dark: primary text and navigation
+
+Colors must not be the only way status is communicated. Use icons, labels and text as well.
+
+### Public Landing Page
+
+The homepage should clearly explain:
+
+```text
+E-Waste Problem
+      ↓
+EcoTrace Solution
+      ↓
+How It Works
+      ↓
+Consumer + Collector + Hub + Recycler Ecosystem
+      ↓
+Benefits / Impact
+      ↓
+Call to Action
+```
+
+Include visual storytelling around:
+
+* E-waste collection
+* Collector network
+* Digital tracking
+* Responsible recycling
+* Environmental impact
+
+### Consumer Experience
+
+The consumer interface should be:
+
+* Simple
+* Friendly
+* Trustworthy
+* Low-friction
+
+Primary action:
+
+**Sell / Recycle E-Waste**
+
+The pickup creation process should be a guided flow:
+
+```text
+Select E-Waste
+ ↓
+Add Details
+ ↓
+Choose Address
+ ↓
+Select Time
+ ↓
+Estimated Value
+ ↓
+Confirm Pickup
+```
+
+After booking, show:
+
+* Collector status
+* Pickup time
+* Material information
+* Payment status
+* Tracking timeline
+
+### Collector Experience
+
+This is one of the most important interfaces.
+
+Design it as **mobile-first**.
+
+Prioritize:
+
+* Large buttons
+* Minimal typing
+* High readability
+* Fast interactions
+* Simple cards
+* Clear job status
+* Camera/photo access
+* Weight input
+* Earnings visibility
+* Offline status
+
+Example collector workflow:
+
+```text
+Nearby Jobs
+     ↓
+Job Details
+     ↓
+Accept
+     ↓
+Navigate
+     ↓
+Arrived
+     ↓
+Add Materials
+     ↓
+Weight + Photo
+     ↓
+Confirm
+     ↓
+Payment
+     ↓
+Deliver to Hub
+```
+
+The collector should always know:
+
+* What to do next
+* How much the collection is worth
+* Whether the operation succeeded
+* Whether data is synced
+
+### Offline Collector UX
+
+Display a visible connection/sync indicator.
+
+Example states:
+
+```text
+Online
+Syncing
+Offline — Saved Locally
+Sync Complete
+Sync Failed — Retry
+```
+
+Offline mode should support the minimum required field workflow.
+
+### Hub Interface
+
+The hub interface should be operational and data-focused.
+
+Prioritize:
+
+* Intake queues
+* Weight verification
+* Inventory
+* Storage bins
+* Discrepancies
+* Batch creation
+* QR scanning
+* Dispatch
+
+Use tables, cards and clear status indicators.
+
+### Recycler Interface
+
+The recycler interface should feel professional and compliance-oriented.
+
+Prioritize:
+
+* Incoming batches
+* Batch details
+* Received weight
+* Processing status
+* Yield/recovery
+* Documents
+* EPR records
+
+### Admin Interface
+
+The admin interface should function as an operational command center.
+
+Show:
+
+* Total pickups
+* Total weight
+* Payments
+* Active collectors
+* Hub inventory
+* Batch movement
+* Material losses
+* Fraud alerts
+* EPR activity
+* Operational trends
+
+Use:
+
+* KPI cards
+* Charts
+* Tables
+* Filters
+* Date ranges
+* Status badges
+* Alerts
+
+### Navigation
+
+Use role-specific navigation.
+
+Consumer:
+
+```text
+Dashboard
+Pickups
+Earnings
+Certificates
+Notifications
+Profile
+```
+
+Collector:
+
+```text
+Jobs
+History
+Wallet
+Notifications
+Profile
+```
+
+Hub:
+
+```text
+Dashboard
+Intake
+Inventory
+Batches
+Reconciliation
+Reports
+```
+
+Recycler:
+
+```text
+Dashboard
+Batches
+Processing
+EPR
+Reports
+Profile
+```
+
+Admin:
+
+```text
+Dashboard
+Users
+Collectors
+Consumers
+Hubs
+Recyclers
+Pickups
+Inventory
+Batches
+Payments
+Pricing
+EPR
+Analytics
+Fraud
+Audit Logs
+Settings
+```
+
+### Forms
+
+Forms must:
+
+* Clearly label fields
+* Show required fields
+* Validate inline
+* Provide helpful errors
+* Preserve entered information after recoverable errors
+* Disable submission during processing
+* Show success feedback
+
+### Tables
+
+Tables must support:
+
+* Search
+* Filtering
+* Sorting
+* Pagination
+* Status badges
+* Responsive behavior
+
+On mobile, convert dense tables into cards where appropriate.
+
+### Charts
+
+Use charts only where they communicate useful information.
+
+Examples:
+
+* Monthly e-waste collected
+* Category distribution
+* Hub inventory
+* Material loss
+* Collector earnings
+* Pickup trends
+* Recycler processing
+* Payment trends
+
+### Status Components
+
+Use consistent status badges.
+
+Examples:
+
+```text
+REQUESTED
+ASSIGNED
+COLLECTOR ARRIVED
+COLLECTED
+PAYMENT PENDING
+COMPLETED
+DELIVERED TO HUB
+```
+
+For batches:
+
+```text
+OPEN
+SEALED
+IN TRANSIT
+RECEIVED
+PROCESSING
+PROCESSED
+```
+
+### Loading States
+
+Use:
+
+* Skeleton loaders
+* Button loading states
+* Progress indicators
+
+Do not leave blank screens while data is loading.
+
+### Empty States
+
+Every list should have a useful empty state.
+
+Example:
+
+> No pickup requests yet. Schedule your first e-waste collection.
+
+Include a relevant action when appropriate.
+
+### Error States
+
+Errors should explain:
+
+* What happened
+* What the user can do
+* Whether retry is available
+
+Avoid technical messages such as raw database errors.
+
+### Confirmation Dialogs
+
+Use confirmation for:
+
+* Cancelling pickups
+* Rejecting batches
+* Pricing changes
+* Important administrative actions
+* Irreversible external operations
+
+### Responsive Requirements
+
+Desktop:
+
+* Multi-column dashboards
+* Tables
+* Analytics
+* Side navigation
+
+Tablet:
+
+* Adaptive layouts
+* Condensed navigation
+
+Mobile:
+
+* Bottom navigation or compact navigation where appropriate
+* Large controls
+* Single-column workflows
+* Touch-friendly inputs
+
+Collector mobile experience receives the highest mobile optimization priority.
+
+### Multilingual Direction
+
+The platform should be architected to support local languages.
+
+At minimum, prepare the interface for:
+
+* English
+* Hindi
+
+The architecture should allow additional Indian languages later.
+
+Text must not be hard-coded in a way that prevents internationalization/localization.
+
+================================================================================
+
+## 13. FINAL PRODUCT GOAL
+
+================================================================================
+
+Build **EcoTrace India** as a unified digital ecosystem that transforms fragmented e-waste collection into a structured, traceable and scalable reverse-logistics network.
+
+The completed product should connect:
+
+```text
+INDIVIDUALS
+     ↓
+COLLECTORS
+     ↓
+LOCAL HUBS
+     ↓
+FORMAL RECYCLERS
+     ↓
+COMPLIANCE / EPR
+```
+
+while providing:
+
+* Transparent category-based pricing
+* Convenient e-waste pickup
+* Collector job discovery
+* Digital weighing
+* Material classification
+* Secure digital payments
+* Collector earnings tracking
+* Hub inventory management
+* Batch consolidation
+* QR-based material tracking
+* Recycler processing records
+* EPR/compliance-ready records
+* Operational analytics
+* Material-loss monitoring
+* Fraud/anomaly alerts
+* Environmental impact visibility
+* Auditability
+* Role-based access
+* Privacy protection
+
+The final application must feel like a **real startup product**, not a generic college CRUD project.
+
+At the same time, the implementation must remain understandable enough for a college student to study, develop, test, demonstrate and deploy.
+
+The system must prioritize the real business workflow:
+
+```text
+COLLECT
+   ↓
+WEIGH
+   ↓
+VALUE
+   ↓
+PAY
+   ↓
+AGGREGATE
+   ↓
+VERIFY
+   ↓
+BATCH
+   ↓
+RECYCLE
+   ↓
+TRACE
+   ↓
+REPORT
+```
+
+The central product principle is:
+
+> **Do not build a new collection network from zero. Digitize, organize and connect the collection network that already exists.**
+
+Technology should create **transparency, efficiency and trust** across the entire e-waste journey.
+
+AI should augment human decision-making rather than replace it.
+
+The architecture should be simple enough to build now, while creating a strong foundation for future expansion into larger collection networks, more hubs, more recyclers, advanced logistics, AI-assisted operations and broader compliance workflows.
+
+The finished EcoTrace platform should therefore function as a single digital layer connecting **consumers, informal collectors, aggregation hubs, formal recyclers and compliance operations**, creating a traceable path from the moment e-waste is collected to the point where it enters formal recycling and associated records are maintained. 

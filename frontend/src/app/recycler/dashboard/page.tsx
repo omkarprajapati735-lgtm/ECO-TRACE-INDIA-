@@ -2,23 +2,43 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Leaf, Bell, Recycle, Factory, FileCheck, Shield, AlertTriangle, Check, Download } from "lucide-react";
+import { Leaf, Bell, Recycle, Factory, FileCheck, Shield, AlertTriangle, Check, Download, LayoutDashboard, Package, FileBarChart, User, Settings } from "lucide-react";
+import DashboardShell from "@/components/DashboardShell";
 
 export default function RecyclerDashboard() {
-  return (
-    <div style={{ minHeight: "100vh", background: "var(--color-canvas)" }}>
-      <div className="nav-top" style={{ maxWidth: "100%", padding: "0 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Leaf size={20} color="var(--color-primary)" />
-          <span style={{ fontFamily: "var(--font-headline)", fontWeight: 700, fontSize: 16 }}>Recycler Dashboard</span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <Bell size={20} color="var(--color-text-secondary)" />
-          <div style={{ width: 32, height: 32, borderRadius: "50%", background: "var(--color-sealed-tint)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 600, color: "var(--color-sealed)" }}>SR</div>
-        </div>
-      </div>
+  const recyclerNav = [
+    {
+      section: "Recycling Plant",
+      items: [
+        { label: "Dashboard", icon: <LayoutDashboard size={18} />, href: "/recycler/dashboard" },
+        { label: "Incoming Batches", icon: <Package size={18} />, href: "/recycler/batches" },
+        { label: "Processing & Yields", icon: <Recycle size={18} />, href: "/recycler/processing" },
+      ]
+    },
+    {
+      section: "Compliance",
+      items: [
+        { label: "EPR Certificates", icon: <FileCheck size={18} />, href: "/recycler/epr" },
+        { label: "Reports", icon: <FileBarChart size={18} />, href: "/recycler/reports" },
+      ]
+    },
+    {
+      section: "Account",
+      items: [
+        { label: "Profile", icon: <User size={18} />, href: "/recycler/profile" },
+        { label: "Settings", icon: <Settings size={18} />, href: "/recycler/settings" },
+      ]
+    }
+  ];
 
-      <div style={{ padding: 24, maxWidth: 1280, margin: "0 auto" }}>
+  return (
+    <DashboardShell
+      navItems={recyclerNav}
+      activeRole="Recycler"
+      userName="Sanjay Rao"
+      userRole="Plant Manager"
+    >
+      <div className="space-y-6">
         <h1 style={{ fontSize: 22, marginBottom: 8 }}>EcoTech Metallurgical Solutions</h1>
         <p style={{ fontSize: 13, color: "var(--color-text-secondary)", marginBottom: 24 }}>CPCB Reg: R-8821 • Bengaluru Plant</p>
 
@@ -55,6 +75,6 @@ export default function RecyclerDashboard() {
           </Link>
         </div>
       </div>
-    </div>
+    </DashboardShell>
   );
 }

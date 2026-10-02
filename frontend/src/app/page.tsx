@@ -61,10 +61,10 @@ export default function LandingPage() {
             EcoTrace India
           </span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 24 }} className="desktop-only">
-          <Link href="#how-it-works" style={{ fontSize: 14, color: "var(--color-text-secondary)", textDecoration: "none" }}>How It Works</Link>
-          <Link href="#rates" style={{ fontSize: 14, color: "var(--color-text-secondary)", textDecoration: "none" }}>Scrap Rates</Link>
-          <Link href="/auth/login" style={{ fontSize: 14, color: "var(--color-text-secondary)", textDecoration: "none" }}>For Collectors</Link>
+        <div className="hidden items-center gap-8 md:flex">
+          <Link href="/how-it-works" className="text-sm font-medium text-[#6f7a6e] hover:text-[#0b1c30]">How It Works</Link>
+          <Link href="/about" className="text-sm font-medium text-[#6f7a6e] hover:text-[#0b1c30]">About Us</Link>
+          <Link href="/contact" className="text-sm font-medium text-[#6f7a6e] hover:text-[#0b1c30]">Contact</Link>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           <button
