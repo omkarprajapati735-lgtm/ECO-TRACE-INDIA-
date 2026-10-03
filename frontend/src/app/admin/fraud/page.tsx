@@ -4,8 +4,10 @@ import { useState } from "react";
 import Link from "next/link";
 import {
   Leaf, Bell, AlertTriangle, CheckCircle2, XCircle, ArrowLeft,
-  Filter, ShieldAlert, Scale, RefreshCw, FileText
+  Filter, ShieldAlert, Scale, RefreshCw, FileText,
+  LayoutDashboard, Radar, Activity, Users, Package, IndianRupee, Settings
 } from "lucide-react";
+import DashboardShell from "@/components/DashboardShell";
 import { toast } from "sonner";
 
 interface DiscrepancyItem {
@@ -104,24 +106,34 @@ export default function FraudRadarPage() {
     }
   };
 
-  return (
-    <div style={{ minHeight: "100vh", background: "var(--color-canvas)" }}>
-      {/* Top Bar */}
-      <div className="nav-top" style={{ maxWidth: "100%", padding: "0 24px" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <Link href="/admin/dashboard" style={{ display: "flex", alignItems: "center", textDecoration: "none", color: "var(--color-text-secondary)" }}>
-            <ArrowLeft size={18} />
-          </Link>
-          <Leaf size={20} color="var(--color-primary)" />
-          <span style={{ fontFamily: "var(--font-headline)", fontWeight: 700, fontSize: 16 }}>Discrepancy & Fraud Radar</span>
-        </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          <span style={{ fontSize: 12, color: "var(--color-text-muted)" }}>Threshold: &gt; 5.0% Variance</span>
-          <div style={{ width: 32, height: 32, borderRadius: "50%", background: "var(--color-primary-light)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 600, color: "var(--color-primary)" }}>RM</div>
-        </div>
-      </div>
+  const adminNav = [
+    {
+      section: "Command Center",
+      items: [
+        { label: "Overview", icon: <LayoutDashboard size={18} />, href: "/admin/dashboard" },
+        { label: "Fraud Radar", icon: <Radar size={18} />, href: "/admin/fraud" },
+        { label: "Live Platform Sync", icon: <Activity size={18} />, href: "/admin/analytics" },
+      ]
+    },
+    {
+      section: "Network",
+      items: [
+        { label: "Users & Roles", icon: <Users size={18} />, href: "/admin/users" },
+        { label: "Hub Operations", icon: <Package size={18} />, href: "/admin/hubs" },
+        { label: "Financials", icon: <IndianRupee size={18} />, href: "/admin/payments" },
+        { label: "Settings", icon: <Settings size={18} />, href: "/admin/settings" },
+      ]
+    }
+  ];
 
-      <div style={{ padding: 24, maxWidth: 1400, margin: "0 auto" }}>
+  return (
+    <DashboardShell
+      navItems={adminNav}
+      activeRole="Admin"
+      userName="Rajesh Mehta"
+      userRole="Central Operations"
+    >
+      <div className="space-y-6">
         {/* KPI Summary */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: 16, marginBottom: 24 }}>
           <div className="metric-card">
@@ -262,6 +274,6 @@ export default function FraudRadarPage() {
           </div>
         </div>
       )}
-    </div>
+    </DashboardShell>
   );
 }
