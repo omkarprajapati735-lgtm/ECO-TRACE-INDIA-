@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { Package, Recycle, FileCheck, FileBarChart, User, Settings, LayoutDashboard, Search, Filter, ShieldCheck, Truck, Clock } from "lucide-react";
+import { Package, Recycle, FileCheck, FileBarChart, FileText, User, Settings, LayoutDashboard, Search, Filter, ShieldCheck, Truck, Clock } from "lucide-react";
 import DashboardShell from "@/components/DashboardShell";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
